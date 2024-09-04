@@ -1,6 +1,3 @@
-Here's the updated Markdown with the API endpoints included:
-
-```markdown
 # Task Overview
 
 Develop a Node.js application that extracts data from various APIs (e.g., gold prices, goods prices, crypto P2P prices) and stores the data in a PostgreSQL database. The application should run as a cron job that automatically fetches data every 24 hours, and it should include an endpoint to retrieve data for a specified date. The system should be designed with the flexibility to easily add new APIs or data sources.
@@ -82,4 +79,3 @@ Develop a Node.js application that extracts data from various APIs (e.g., gold p
 - Effectiveness and reliability of data extraction and storage.
 - Endpoint performance and ability to handle various query parameters.
 - Quality of error handling, logging, and documentation.
-```
