@@ -36,10 +36,16 @@ CommodityRate.init(
         price: {
             type: DataTypes.DECIMAL,
             allowNull: false,
+            validate: {
+                isNumeric: true,
+            },
         },
         date: {
             type: DataTypes.DATEONLY,
             allowNull: false,
+            validate: {
+                isDate: true,
+            },
         },
         notes: DataTypes.TEXT,
         extraParams: DataTypes.JSON,
