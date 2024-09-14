@@ -1,3 +1,3 @@
-export interface GoldRatesExtraParams {
+export default interface GoldRatesExtraParams {
     description: string;
 }

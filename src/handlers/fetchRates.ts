@@ -1,8 +1,10 @@
 import GoldRatesFetcher from '../rate-fetchers/gold-rates/GoldRatesFetcher';
-import { RateFetcher } from '../interfaces/RateFetcher.interface';
+import RateFetcher from '../interfaces/RateFetcher.interface';
 import CommodityRate from '../database/models/commodityrate';
 import P2pRatesFetcher from '../rate-fetchers/p2p-rates/P2pRatesFetcher';
 import WelandapolaRatesFetcher from '../rate-fetchers/welandapola-rates/WelandapolaRatesFetcher';
+
+function fetchRatesWithDelay(rateFetcher: RateFetcher) {}
 
 export function fetchRates() {
     let today = new Date().toISOString().split('T')[0];

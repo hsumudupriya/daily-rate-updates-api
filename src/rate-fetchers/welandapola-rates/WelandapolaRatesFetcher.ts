@@ -1,9 +1,9 @@
-import { CommodityRate } from '../../interfaces/CommodityRate.dto';
-import { FetchingError } from '../../interfaces/FetchingError.dto';
-import { RateFetcher } from '../../interfaces/RateFetcher.interface';
+import CommodityRate from '../../interfaces/CommodityRate.dto';
+import FetchingError from '../../interfaces/FetchingError.dto';
+import RateFetcher from '../../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
-import { WelandapolaRatesResponse } from './interfaces/WelandapolaRatesResponse.dto';
-import { WelandapolaRatesExtraParams } from './interfaces/WelandapolaRatesExtraParams.dto';
+import WelandapolaRatesResponse from './interfaces/WelandapolaRatesResponse.dto';
+import WelandapolaRatesExtraParams from './interfaces/WelandapolaRatesExtraParams.dto';
 
 export default class WelandapolaRatesFetcher implements RateFetcher {
     url = 'https://api.welandapola.com/api/prices';

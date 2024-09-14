@@ -1,4 +1,4 @@
-export interface WelandapolaRatesExtraParams {
+export default interface WelandapolaRatesExtraParams {
     id: number;
     market: string;
     type: string;

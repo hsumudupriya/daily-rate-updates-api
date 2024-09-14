@@ -1,9 +1,9 @@
-import { CommodityRate } from '../../interfaces/CommodityRate.dto';
-import { FetchingError } from '../../interfaces/FetchingError.dto';
-import { RateFetcher } from '../../interfaces/RateFetcher.interface';
+import CommodityRate from '../../interfaces/CommodityRate.dto';
+import FetchingError from '../../interfaces/FetchingError.dto';
+import RateFetcher from '../../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
-import { GoldRatesResponse } from './interfaces/GoldRatesResponse.dto';
-import { GoldRatesExtraParams } from './interfaces/GoldRatesExtraParams.dto';
+import GoldRatesResponse from './interfaces/GoldRatesResponse.dto';
+import GoldRatesExtraParams from './interfaces/GoldRatesExtraParams.dto';
 
 export default class GoldRatesFetcher implements RateFetcher {
     url = 'https://ceyloncash.com/api/goldrates';

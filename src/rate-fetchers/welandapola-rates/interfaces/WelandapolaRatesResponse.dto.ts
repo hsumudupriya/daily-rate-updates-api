@@ -1,4 +1,4 @@
-export interface WelandapolaRatesResponse {
+export default interface WelandapolaRatesResponse {
     data: Array<{
         id: number;
         attributes: WelandapolaRatesResponseAttributes;

@@ -1,4 +1,4 @@
-export interface P2pRatesExtraParams {
+export default interface P2pRatesExtraParams {
     asset: string;
     fiat: string;
     tradeType: string;

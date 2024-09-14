@@ -1,4 +1,4 @@
-export interface P2pRatesResponse {
+export default interface P2pRatesResponse {
     price: number;
     minSingleTransAmount: string;
     dynamicMaxSingleTransAmount: string;

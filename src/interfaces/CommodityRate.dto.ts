@@ -1,4 +1,4 @@
-export interface CommodityRate<extraParams = object> {
+export default interface CommodityRate<extraParams = object> {
     name: string;
     price: number;
     date: string;

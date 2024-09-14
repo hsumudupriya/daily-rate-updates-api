@@ -1,4 +1,4 @@
-export interface GoldRatesResponse {
+export default interface GoldRatesResponse {
     success: boolean;
     status: number;
     message: string;
