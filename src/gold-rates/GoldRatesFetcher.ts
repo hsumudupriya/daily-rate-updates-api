@@ -12,8 +12,8 @@ export default class GoldRatesFetcher implements RateFetcher {
         return axios
             .get<GoldRatesResponse>(this.url)
             .then(function (response) {
-                let goldRates: Array<Commodity<GoldRatesExtraParams>> = [];
-                goldRates.push({
+                let rates: Array<Commodity<GoldRatesExtraParams>> = [];
+                rates.push({
                     name: '24k_sovereign',
                     price: response.data.rates['24k_sovereign'],
                     notes: response.data.notes,
@@ -22,7 +22,7 @@ export default class GoldRatesFetcher implements RateFetcher {
                         description: response.data.description,
                     },
                 });
-                goldRates.push({
+                rates.push({
                     name: '22k_sovereign',
                     price: response.data.rates['22k_sovereign'],
                     notes: response.data.notes,
@@ -32,7 +32,7 @@ export default class GoldRatesFetcher implements RateFetcher {
                     },
                 });
 
-                return goldRates;
+                return rates;
             })
             .catch(function (error: Error | AxiosError) {
                 // TODO: Asynchronously log the error. May be in Sentry.
