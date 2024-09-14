@@ -3,6 +3,7 @@ import RateFetcher from '../interfaces/RateFetcher.interface';
 import CommodityRate from '../database/models/commodityrate';
 import P2pRatesFetcher from '../rate-fetchers/p2p-rates/P2pRatesFetcher';
 import WelandapolaRatesFetcher from '../rate-fetchers/welandapola-rates/WelandapolaRatesFetcher';
+import axios from 'axios';
 
 /**
  *
@@ -78,3 +79,10 @@ export default function fetchRates() {
         }
     });
 }
+
+axios.interceptors.response.use((response) => {
+    // TODO: Log the response.
+    console.log(response);
+
+    return response;
+});
