@@ -5,7 +5,7 @@ import axios, { AxiosError } from 'axios';
 import { GoldRatesResponse } from './interfaces/GoldRatesResponse.dto';
 import { GoldRatesExtraParams } from './interfaces/GoldRatesExtraParams.dto';
 
-export default class GoldRateFetcher implements RateFetcher {
+export default class GoldRatesFetcher implements RateFetcher {
     url = 'https://ceyloncash.com/api/goldrates';
 
     get(): Promise<Array<Commodity>> {
