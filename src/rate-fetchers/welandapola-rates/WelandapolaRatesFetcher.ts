@@ -1,6 +1,6 @@
-import { CommodityRate } from '../interfaces/CommodityRate.dto';
-import { FetchingError } from '../interfaces/FetchingError.dto';
-import { RateFetcher } from '../interfaces/RateFetcher.interface';
+import { CommodityRate } from '../../interfaces/CommodityRate.dto';
+import { FetchingError } from '../../interfaces/FetchingError.dto';
+import { RateFetcher } from '../../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
 import { WelandapolaRatesResponse } from './interfaces/WelandapolaRatesResponse.dto';
 import { WelandapolaRatesExtraParams } from './interfaces/WelandapolaRatesExtraParams.dto';

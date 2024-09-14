@@ -1,6 +1,6 @@
-import { CommodityRate } from '../interfaces/CommodityRate.dto';
-import { FetchingError } from '../interfaces/FetchingError.dto';
-import { RateFetcher } from '../interfaces/RateFetcher.interface';
+import { CommodityRate } from '../../interfaces/CommodityRate.dto';
+import { FetchingError } from '../../interfaces/FetchingError.dto';
+import { RateFetcher } from '../../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
 import { P2pRatesResponse } from './interfaces/P2pRatesResponse.dto';
 import { P2pRatesExtraParams } from './interfaces/P2pRatesExtraParams.dto';
