@@ -1,6 +1,6 @@
-import { Commodity } from './Commodity.dto';
+import { CommodityRate } from './CommodityRate.dto';
 
 export interface RateFetcher {
     readonly url: string;
-    get(): Promise<Array<Commodity>>;
+    get(): Promise<Array<CommodityRate>>;
 }

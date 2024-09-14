@@ -1,4 +1,4 @@
-import { Commodity } from '../interfaces/Commodity.dto';
+import { CommodityRate } from '../interfaces/CommodityRate.dto';
 import { FetchingError } from '../interfaces/FetchingError.dto';
 import { RateFetcher } from '../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
@@ -26,7 +26,7 @@ export default class WelandapolaRatesFetcher implements RateFetcher {
         this.eq = eq;
     }
 
-    get(): Promise<Array<Commodity>> {
+    get(): Promise<Array<CommodityRate>> {
         return axios
             .get<WelandapolaRatesResponse>(this.url, {
                 headers: {
@@ -50,7 +50,8 @@ export default class WelandapolaRatesFetcher implements RateFetcher {
                 },
             })
             .then(function (response) {
-                let rates: Array<Commodity<WelandapolaRatesExtraParams>> = [];
+                let rates: Array<CommodityRate<WelandapolaRatesExtraParams>> =
+                    [];
 
                 response.data.data.forEach((item) => {
                     rates.push({

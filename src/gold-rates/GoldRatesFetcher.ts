@@ -1,4 +1,4 @@
-import { Commodity } from '../interfaces/Commodity.dto';
+import { CommodityRate } from '../interfaces/CommodityRate.dto';
 import { FetchingError } from '../interfaces/FetchingError.dto';
 import { RateFetcher } from '../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
@@ -8,11 +8,11 @@ import { GoldRatesExtraParams } from './interfaces/GoldRatesExtraParams.dto';
 export default class GoldRatesFetcher implements RateFetcher {
     url = 'https://ceyloncash.com/api/goldrates';
 
-    get(): Promise<Array<Commodity>> {
+    get(): Promise<Array<CommodityRate>> {
         return axios
             .get<GoldRatesResponse>(this.url)
             .then(function (response) {
-                let rates: Array<Commodity<GoldRatesExtraParams>> = [];
+                let rates: Array<CommodityRate<GoldRatesExtraParams>> = [];
                 rates.push({
                     name: '24k_sovereign',
                     price: response.data.rates['24k_sovereign'],

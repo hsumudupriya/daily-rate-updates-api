@@ -1,4 +1,4 @@
-import { Commodity } from '../interfaces/Commodity.dto';
+import { CommodityRate } from '../interfaces/CommodityRate.dto';
 import { FetchingError } from '../interfaces/FetchingError.dto';
 import { RateFetcher } from '../interfaces/RateFetcher.interface';
 import axios, { AxiosError } from 'axios';
@@ -21,7 +21,7 @@ export default class P2pRatesFetcher implements RateFetcher {
         this.tradeType = tradeType;
     }
 
-    get(): Promise<Array<Commodity>> {
+    get(): Promise<Array<CommodityRate>> {
         return axios
             .get<Array<P2pRatesResponse>>(this.url, {
                 params: {
@@ -31,7 +31,7 @@ export default class P2pRatesFetcher implements RateFetcher {
                 },
             })
             .then((response) => {
-                let rates: Array<Commodity<P2pRatesExtraParams>> = [];
+                let rates: Array<CommodityRate<P2pRatesExtraParams>> = [];
 
                 response.data.forEach((item) => {
                     rates.push({
