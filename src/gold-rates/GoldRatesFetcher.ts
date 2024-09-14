@@ -16,7 +16,7 @@ export default class GoldRatesFetcher implements RateFetcher {
                 rates.push({
                     name: '24k_sovereign',
                     price: response.data.rates['24k_sovereign'],
-                    notes: response.data.notes,
+                    notes: response.data.note,
                     date: response.data.date,
                     extraParams: {
                         description: response.data.description,
@@ -25,7 +25,7 @@ export default class GoldRatesFetcher implements RateFetcher {
                 rates.push({
                     name: '22k_sovereign',
                     price: response.data.rates['22k_sovereign'],
-                    notes: response.data.notes,
+                    notes: response.data.note,
                     date: response.data.date,
                     extraParams: {
                         description: response.data.description,

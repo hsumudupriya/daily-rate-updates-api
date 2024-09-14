@@ -5,5 +5,5 @@ export interface GoldRatesResponse {
     description: string;
     date: string;
     rates: { '24k_sovereign': number; '22k_sovereign': number };
-    notes: string;
+    note: string;
 }

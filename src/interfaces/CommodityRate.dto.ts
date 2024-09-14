@@ -3,5 +3,5 @@ export interface CommodityRate<extraParams = object> {
     price: number;
     date: string;
     notes?: string;
-    extraParams: extraParams;
+    extraParams?: extraParams | null;
 }

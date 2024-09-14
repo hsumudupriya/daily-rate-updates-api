@@ -15,13 +15,15 @@ export default class WelandapolaRatesFetcher implements RateFetcher {
     readonly eq: string;
 
     constructor(
-        dateFrom: string,
-        dateTo: string,
+        dateFrom?: string | null,
+        dateTo?: string | null,
         market: string = 'pettah',
         eq: string = 'retail'
     ) {
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+        let today = new Date().toISOString().split('T')[0];
+
+        this.dateFrom = dateFrom ?? today;
+        this.dateTo = dateTo ?? today;
         this.market = market;
         this.eq = eq;
     }
