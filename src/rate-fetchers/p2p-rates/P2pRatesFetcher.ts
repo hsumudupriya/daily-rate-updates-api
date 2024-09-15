@@ -21,7 +21,7 @@ export default class P2pRatesFetcher implements RateFetcher {
         this.tradeType = tradeType;
     }
 
-    get(): Promise<Array<CommodityRate>> {
+    get(): Promise<Array<CommodityRate<P2pRatesExtraParams>>> {
         return axios
             .get<Array<P2pRatesResponse>>(this.url, {
                 params: {

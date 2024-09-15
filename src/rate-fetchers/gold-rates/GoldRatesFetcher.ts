@@ -8,7 +8,7 @@ import GoldRatesExtraParams from './interfaces/GoldRatesExtraParams.dto';
 export default class GoldRatesFetcher implements RateFetcher {
     url = 'https://ceyloncash.com/api/goldrates';
 
-    get(): Promise<Array<CommodityRate>> {
+    get(): Promise<Array<CommodityRate<GoldRatesExtraParams>>> {
         return axios
             .get<GoldRatesResponse>(this.url)
             .then(function (response) {

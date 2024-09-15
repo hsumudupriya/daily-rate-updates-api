@@ -28,7 +28,7 @@ export default class WelandapolaRatesFetcher implements RateFetcher {
         this.eq = eq;
     }
 
-    get(): Promise<Array<CommodityRate>> {
+    get(): Promise<Array<CommodityRate<WelandapolaRatesExtraParams>>> {
         return axios
             .get<WelandapolaRatesResponse>(this.url, {
                 headers: {
