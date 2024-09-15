@@ -1,3 +1,5 @@
-import fetchRates from '../handlers/fetchRates.handler';
+import RatesFetcherService from '../services/RatesFetcher.service';
 
-fetchRates();
+let ratesFetcherService = new RatesFetcherService();
+
+ratesFetcherService.fetchRates();

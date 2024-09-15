@@ -59,24 +59,24 @@ The below tests are implemented in the application.
 │   |   |── migrations
 │   |   |── models
 │   |   |── seeders
-│   ├── handlers
-│   |   |── fetchRates.handler.ts
 │   ├── interfaces
 │   |   |── CommodityRate.dto.ts
 │   |   |── FetchingError.dto.ts
 │   |   |── GetCommodityRatesParams.dto.ts
 │   |   |── RateFetcher.interface.ts
-│   ├── rate-fetchers
-│   |   |── gold-rates
+│   ├── rate_fetchers
+│   |   |── gold_rates
 |   |   |   |── interfaces
 |   |   |   |   |── GoldRatesExtraParams.dto.ts
 |   |   |   |   |── GoldRatesResponse.dto.ts
 |   |   |   |── GoldRatesFetcher.ts
-│   |   |── p2p-rates
+│   |   |── p2p_rates
 |   |   |   |── interfaces
-│   |   |── welandapola-rates
+│   |   |── welandapola_rates
 |   |   |   |── interfaces
 │   ├── routes
+│   ├── services
+│   |   |── RatesFetcher.service.ts
 │   └── index.ts
 └── .env
 ```
@@ -106,9 +106,9 @@ A module to intergrate a new API to fetch rates should contain two interfaces an
 
         ![Fetcher.ts](assets/Fetcher.ts.jpg 'Fetcher.ts')
 
-To consume the API add an instance of the class to the `rateFetchers` array in the `fetchRates()` function in the file `src\handlers\fetchRates.handler.ts`
+Add an instance of the class to the `rateFetchers` property inside the constructor of the `src\services\RatesFetcher.service.ts` class to consume the API.
 
-![fetchRates.function](assets/fetchRates.function.jpg 'fetchRates.function')
+![RatesFetcher.service.ts](assets/RatesFetcher.service.ts.jpg 'RatesFetcher.service.ts')
 
 All the modules for fetching rates should be in the `src/rate-fetchers` folder. You can copy an existing folder like `gold-rates` and edit it to implement a new API.
 
