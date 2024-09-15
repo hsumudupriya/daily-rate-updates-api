@@ -1,81 +1,123 @@
-# Task Overview
+## About
 
-Develop a Node.js application that extracts data from various APIs (e.g., gold prices, goods prices, crypto P2P prices) and stores the data in a PostgreSQL database. The application should run as a cron job that automatically fetches data every 24 hours, and it should include an endpoint to retrieve data for a specified date. The system should be designed with the flexibility to easily add new APIs or data sources.
+This Node.js application is developed by [Hasanta Sumudupriya](https://www.linkedin.com/in/hsumudupriya) as a technical task for Ceylon Cash. The objectives of the application are as below.
 
-## Objective
+1. Fetch daily rates of goods (f.e. Gold, Crypto P2P, commodities) from 3rd party APIs via a cron job and store them in a PostgreSQL database.
+1. Provide an API endpoint to fetch the rates of a particular date.
 
-- Build a scalable and flexible data extraction service using Node.js.
-- Integrate with multiple external APIs to collect price data daily and store it in a PostgreSQL database.
-- Implement a RESTful endpoint to fetch stored data for a given date.
-- Design a robust database schema to support various data types and retrieval requirements targeting future additions of new API sources.
+## System requirements
 
-## Technical Requirements
+This application utilizes Node.js JavaScript runtime environment (v20.17.0 or later) to run. Download and install Node.js using this [link](https://nodejs.org/en/download/package-manager/current).
 
-### Language & Framework
+## Run the application.
 
-- Node.js
-- Express
-- TypeScript
+Open bash/terminal/command line tool and run the commands below to start the application.
 
-### Database
+1. `git clone git@github.com:hsumudupriya/daily-rate-updates-api.git`
+1. `cd daily-rate-updates-api`
+1. `cp .env.example .env`
+1. Set values of the below variables in the `.env` file.
+    1. `DB_USERNAME`
+    1. `DB_PASSWORD`
+    1. `DB_DATABASE`
+    1. `DB_HOST`
+    1. `DB_PORT`
+1. `npm install`
+1. `npm run db:create` to create the database if you have not created it already.
+1. `npm run db:migrate`
+1. `npm run build`
+1. Add the below entry to your crontab to fetch rates at 00:01 every day.
+    - `1 0 * * *  cd /path/to/daily-rate-updates-api && node dist/cron/fetchRates.cron.js`
+1. `npm run start`
 
-- PostgreSQL with an ORM like Knex, Sequelize, or Drizzle
+Untill the cron job runs, you might not have data to test the application. Because of that you can fetch the rates manually by running the command `node dist/cron/fetchRates.cron.js` in another bash/terminal/command line tool.
 
-### APIs to Integrate
+Open the browser and visit [localhost:3000/api/rates?date=2024-09-14](http://localhost:3000/api/rates?date=2024-09-14) to view the rates for the date 2024-09-14. You can change the date to today if you receive and empty result.
 
-- **Gold prices**: [https://ceyloncash.com/api/goldrates/](https://ceyloncash.com/api/goldrates/)
-- **P2P rates**: [https://nisal.me/p2p/post.php?asset=USDT&fiat=LKR&tradeType=BUY](https://nisal.me/p2p/post.php?asset=USDT&fiat=LKR&tradeType=BUY)
-- **Consumer prices**: 
-  - [https://api.welandapola.com/api/prices?pagination[pageSize]=1000&filters[date][$between]=2024-09-04&filters[date][$between]=2024-09-05&filters[market][$eq]=narahenpita&filters[type][$eq]=retail](https://api.welandapola.com/api/prices?pagination[pageSize]=1000&filters[date][$between]=2024-09-04&filters[date][$between]=2024-09-05&filters[market][$eq]=narahenpita&filters[type][$eq]=retail)
-  - [https://prices.welandapola.com/](https://prices.welandapola.com/)
+<!-- ## Run the tests
 
-## System Architecture
+Run `docker-compose exec laravel php artisan test` command in another bash/terminal/command line tool to test the application yourself.
 
-- The application should run as a cron job, scheduled to execute every 24 hours.
-- Integrate with multiple APIs to fetch data, handle responses, and log results.
-- Store data in a PostgreSQL database with a schema designed to support the various data from each API.
+The below tests are implemented in the application.
 
-## Service Flexibility
+![tests](/test-results.jpg 'tests') -->
 
-- Develop a modular design to easily integrate new services/APIs.
+## Additional info
 
-## Database Design
+### Folder structure of the application
 
-- Define a database architecture that supports storing data from multiple APIs.
-- Ensure the schema is structured to efficiently store, index, and retrieve data based on date or other relevant filters.
-- The schema should be designed to handle different data structures from each API while maintaining performance.
-- Write necessary migration files.
+```
+├── dist
+│   ├── cron
+│   |   |── fetchRates.cron.js
+│   └── index.js
+├── node_modules
+├── src
+│   ├── controllers
+│   ├── cron
+│   ├── database
+│   |   |── migrations
+│   |   |── models
+│   |   |── seeders
+│   ├── handlers
+│   |   |── fetchRates.handler.ts
+│   ├── interfaces
+│   |   |── CommodityRate.dto.ts
+│   |   |── FetchingError.dto.ts
+│   |   |── GetCommodityRatesParams.dto.ts
+│   |   |── RateFetcher.interface.ts
+│   ├── rate-fetchers
+│   |   |── gold-rates
+|   |   |   |── interfaces
+|   |   |   |   |── GoldRatesExtraParams.dto.ts
+|   |   |   |   |── GoldRatesResponse.dto.ts
+|   |   |   |── GoldRatesFetcher.ts
+│   |   |── p2p-rates
+|   |   |   |── interfaces
+│   |   |── welandapola-rates
+|   |   |   |── interfaces
+│   ├── routes
+│   └── index.ts
+└── .env
+```
 
-## Endpoint for Data Retrieval
+### Intergrated APIs
 
-- Implement a RESTful endpoint that allows users to fetch data gathered for a specified date.
-- Ensure the endpoint is optimized for querying historical data from the database.
+1. `https://ceyloncash.com/api/goldrates` - To fetch Gold rates.
+1. `https://nisal.me/p2p/post.php` - To fetch Cryptocurrency P2P rates.
+1. `https://api.welandapola.com/api/prices` - To fetch commodity rates.
 
-## Error Handling
+### How to intergrate a new API to fetch rates
 
-- Implement error handling for API calls, connection issues, and data validation errors.
-- Log errors and exceptions to track the daemon’s performance and any issues.
+A module to intergrate a new API to fetch rates should contain two interfaces and a class as below.
 
-## Logging & Monitoring
+1. An interface that defines the parameters of the response of the API endpoint.
 
-- Set up detailed logging for each API call, including successes and failures.
+    ![Response.dto.ts](assets/Response.dto.ts.jpg 'Response.dto.ts')
 
-## Performance Considerations
+1. An interface that defines which parameters of the response should be stored as extra parameters.
 
-- Implement retry mechanisms for failed API requests with exponential backoff.
+    ![ExtraParams.dto.ts](assets/ExtraParams.dto.ts.jpg 'ExtraParams.dto.ts')
 
-## Deliverables
+1. A class which implements the `src/interfaces/RateFetcher.interface`.
 
-- Complete Node.js application with integrated APIs.
-- Defined database schema and migration scripts for PostgreSQL.
-- RESTful endpoint for fetching data for a specified date.
-- Error handling and logging implementations.
-- Tests to validate API integrations, data storage, and endpoint functionality.
+    1. It should contain a `url` property that defines the URL address of the API endpoint.
+    1. It should define a `get()` method that will return a promise of `Promise<Array<CommodityRate>`.
 
-## Evaluation Criteria
+        ![Fetcher.ts](assets/Fetcher.ts.jpg 'Fetcher.ts')
 
-- Code quality, modularity, and maintainability.
-- Database design and ability to efficiently store and query data.
-- Effectiveness and reliability of data extraction and storage.
-- Endpoint performance and ability to handle various query parameters.
-- Quality of error handling, logging, and documentation.
+To consume the API add an instance of the class to the `rateFetchers` array in the `fetchRates()` function in the file `src\handlers\fetchRates.handler.ts`
+
+![fetchRates.function](assets/fetchRates.function.jpg 'fetchRates.function')
+
+All the modules for fetching rates should be in the `src/rate-fetchers` folder. You can copy an existing folder like `gold-rates` and edit it to implement a new API.
+
+### More info about the cron to fetch the rates
+
+If an eror occurs while fetching rates from any given API on the 1st try, the application will try again after 1 minute. If the 2nd try also fails, a 3rd try will be made after 5 minutes. Only 3 tries will be made for an API.
+
+![exponential-retry](assets/exponential-retry.jpg 'exponential-retry')
+
+### ER diagram of the application
+
+![erd](assets/erd.jpg 'erd')
