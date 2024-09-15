@@ -1,28 +1,14 @@
+import 'dotenv/config';
 import { Sequelize } from 'sequelize';
-// import { DB_DATABASE, DB_HOST, DB_PASSWORD, DB_USERNAME } from '../configs';
-
-// TODO: Update with env vars
-// let sequelizeConnection: Sequelize = new Sequelize(
-//     DB_DATABASE,
-//     DB_USERNAME,
-//     DB_PASSWORD,
-//     {
-//         host: DB_HOST,
-//         dialect: 'mysql',
-//         port: 3306,
-//     }
-// );
-
-// export default sequelizeConnection;
 
 let sequelize: Sequelize = new Sequelize(
-    'daily_rates_api',
-    'postgres',
-    'postgres',
+    process.env.DB_DATABASE!,
+    process.env.DB_USERNAME!,
+    process.env.DB_PASSWORD!,
     {
-        host: '127.0.0.1',
+        host: process.env.DB_HOST!,
         dialect: 'postgres',
-        port: 5432,
+        port: parseInt(process.env.DB_PORT!),
     }
 );
 

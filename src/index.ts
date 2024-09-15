@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import ratesRouter from './routes/rates';
 
 const app = express();
