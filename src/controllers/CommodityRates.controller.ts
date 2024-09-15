@@ -1,4 +1,4 @@
-import CommodityRate from '../database/models/commodityrate';
+import CommodityRate from '../database/models/CommodityRate.model';
 import GetCommodityRatesParams from '../interfaces/GetCommodityRatesParams.dto';
 
 export default class CommodityRatesController {

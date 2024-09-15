@@ -1,6 +1,6 @@
 import { Request, Response, Router } from 'express';
 import GetCommodityRatesParams from '../interfaces/GetCommodityRatesParams.dto';
-import CommodityRatesController from '../controllers/commodityrates.controller';
+import CommodityRatesController from '../controllers/CommodityRates.controller';
 
 const ratesRouter = Router();
 
