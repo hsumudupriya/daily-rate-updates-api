@@ -118,6 +118,12 @@ If an eror occurs while fetching rates from any given API on the 1st try, the ap
 
 ![exponential-retry](assets/exponential-retry.jpg 'exponential-retry')
 
+### Data validations
+
+Data validations are implemented using Sequelize validations in models.
+
+![model-validations](assets/model-validations.jpg 'model-validations')
+
 ### ER diagram of the application
 
 ![erd](assets/erd.jpg 'erd')
