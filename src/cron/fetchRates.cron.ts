@@ -1,5 +1,5 @@
 import RatesFetcherService from '../services/RatesFetcher.service';
 
-let ratesFetcherService = new RatesFetcherService();
+const ratesFetcherService = new RatesFetcherService();
 
 ratesFetcherService.fetchRates();

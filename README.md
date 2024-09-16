@@ -34,13 +34,30 @@ Untill the cron job runs, you might not have data to test the application. Becau
 
 Open the browser and visit [localhost:3000/api/rates?date=2024-09-14](http://localhost:3000/api/rates?date=2024-09-14) to view the rates for the date 2024-09-14. You can change the date to today if you receive and empty result.
 
-<!-- ## Run the tests
+## Run the tests
 
-Run `docker-compose exec laravel php artisan test` command in another bash/terminal/command line tool to test the application yourself.
+Run below commands in another bash/terminal/command line tool to test the application.
+
+1. `cp .env.example .env.test`
+1. Set values of the below variables in the `.env.test` file.
+    1. `DB_USERNAME`
+    1. `DB_PASSWORD`
+    1. `DB_DATABASE`
+    1. `DB_HOST`
+    1. `DB_PORT`
+1. `npm run test:db:create` to create the test database if you have not created it already.
+1. `npm run test:db:migrate`
+1. `npm run test`
 
 The below tests are implemented in the application.
 
-![tests](/test-results.jpg 'tests') -->
+![tests-results](/assets/test-results.jpg 'tests-results')
+
+### Notes
+
+Currently, Jest which is used to test the application is configured to serially run the tests using only 1 worker. In the future if the application grows and the tests start to take a long time to run using only 1 worker, the no. of workers can be increased in the `package.json` script `"test": "jest --maxWorkers=1"`.
+
+When doing so, keep in mind to manage the state of the testing database between the tests that run in parallel. Read this [article](https://dev.to/walrusai/testing-database-interactions-with-jest-519n) for more details about that.
 
 ## Additional info
 
