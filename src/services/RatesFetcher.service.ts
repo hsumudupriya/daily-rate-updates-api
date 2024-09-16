@@ -73,19 +73,17 @@ export default class RatesFetcherService {
                 // 3rd try is with 5 mins delay.
                 // Only 3 tries are made.
                 if (delay === 0 || delay < 5) {
-                    if (delay === 0) {
-                        this.fetchRatesWithDelay(rateFetcher, 1);
-                    } else {
-                        this.fetchRatesWithDelay(rateFetcher, delay * 5);
-                    }
+                    return delay === 0
+                        ? this.fetchRatesWithDelay(rateFetcher, 1)
+                        : this.fetchRatesWithDelay(rateFetcher, delay * 5);
                 }
 
                 // TODO: Log the error.
-                console.error(
-                    new Date().toISOString().split('T')[1],
-                    error.message,
-                    error.stack
-                );
+                // console.error(
+                //     new Date().toISOString().split('T')[1],
+                //     error.message,
+                //     error.stack
+                // );
             });
     }
 
@@ -99,17 +97,11 @@ export default class RatesFetcherService {
                 date: rateDto.date,
             },
         }).then((commodityRate: CommodityRate | null) => {
-            let dbCommodityRate: Promise<CommodityRate>;
-
-            if (commodityRate) {
-                // If a rate already exists, update it.
-                dbCommodityRate = commodityRate.update(rateDto);
-            } else {
-                // Else create one.
-                dbCommodityRate = CommodityRate.create(rateDto);
-            }
-
-            return dbCommodityRate;
+            // If a rate already exists, update it.
+            // Else create one.
+            return commodityRate
+                ? commodityRate.update(rateDto)
+                : CommodityRate.create(rateDto);
         });
     }
 }

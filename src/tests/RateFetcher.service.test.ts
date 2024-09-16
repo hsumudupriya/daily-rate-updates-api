@@ -3,6 +3,7 @@ import RatesFetcherService from '../services/RatesFetcher.service';
 import GoldRatesFetcher from '../rate_fetchers/gold_rates/GoldRatesFetcher';
 import CommodityRate from '../database/models/CommodityRate.model';
 import sequelize from '../database/connection';
+import { setTimeout } from 'timers/promises';
 
 beforeEach(() => {
     jest.resetAllMocks();
@@ -14,13 +15,18 @@ beforeEach(() => {
     });
 });
 
+// Mock the setTimeout function.
+jest.mock('timers/promises', () => ({
+    setTimeout: jest.fn(),
+}));
+
 afterAll(() => {
     // Close the connections to the database after running the tests.
     sequelize.close();
 });
 
 describe('RateFetcher.service tests', () => {
-    test('should fetch rates and create datebase records', async () => {
+    test('should fetch the rates and create datebase records', async () => {
         // Assert the database do not have any record.
         expect((await CommodityRate.findAll()).length).toBe(0);
 
@@ -79,5 +85,29 @@ describe('RateFetcher.service tests', () => {
                 description: response.data.description,
             },
         });
+    });
+
+    test('should try 3 times to fetch the rates if the API request fails', async () => {
+        // Mock the axios GET request to return error.
+        jest.spyOn(axios, 'get').mockRejectedValue(new Error('404'));
+        // Mock the implementation of setTimeout
+        (setTimeout as jest.Mock).mockReturnValue(Promise.resolve(null)); // Simulate the timeout resolving
+
+        // Create an instance of the RatesFetcherService only with the GoldRatesFetcher.
+        const ratesFetcher: RatesFetcherService = new RatesFetcherService([
+            new GoldRatesFetcher(),
+        ]);
+
+        await ratesFetcher.fetchRates();
+
+        // Assertions
+        // API endpoint was called 3 times.
+        expect(axios.get).toHaveBeenCalledTimes(3);
+        // setTimeout function was called 2 times.
+        expect(setTimeout).toHaveBeenCalledTimes(2);
+        // setTimeout function was called with 60,000 milliseconds (1 minute) for the 2nd try.
+        expect(setTimeout).toHaveBeenNthCalledWith(1, 60000);
+        // setTimeout function was called with 300,000 milliseconds (5 minutes) for the 3rd try.
+        expect(setTimeout).toHaveBeenNthCalledWith(2, 300000);
     });
 });
