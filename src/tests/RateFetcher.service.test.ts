@@ -90,8 +90,6 @@ describe('RateFetcher.service tests', () => {
     test('should try 3 times to fetch the rates if the API request fails', async () => {
         // Mock the axios GET request to return error.
         jest.spyOn(axios, 'get').mockRejectedValue(new Error('404'));
-        // Mock the implementation of setTimeout
-        (setTimeout as jest.Mock).mockReturnValue(Promise.resolve(null)); // Simulate the timeout resolving
 
         // Create an instance of the RatesFetcherService only with the GoldRatesFetcher.
         const ratesFetcher: RatesFetcherService = new RatesFetcherService([
