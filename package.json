@@ -1,5 +1,5 @@
 {
-    "name": "Daily Rate Updates API",
+    "name": "daily-rate-updates-api",
     "version": "1.0.0",
     "description": "This is a Node.js application developed by Hasanta Sumudupriya as a technical task for Ceylon Cash. The objective of the application is to provide an API that facilitates fetching daily rates of commodities.",
     "main": "index.js",

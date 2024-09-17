@@ -17,6 +17,7 @@ Open bash/terminal/command line tool and run the commands below to start the app
 1. `cd daily-rate-updates-api`
 1. `cp .env.example .env`
 1. Set values of the below variables in the `.env` file.
+    1. `APP_ENV`
     1. `DB_USERNAME`
     1. `DB_PASSWORD`
     1. `DB_DATABASE`
@@ -40,6 +41,7 @@ Run below commands in another bash/terminal/command line tool to test the applic
 
 1. `cp .env.example .env.test`
 1. Set values of the below variables in the `.env.test` file.
+    1. `APP_ENV='test'`
     1. `DB_USERNAME`
     1. `DB_PASSWORD`
     1. `DB_DATABASE`
