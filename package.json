@@ -4,7 +4,7 @@
     "description": "This is a Node.js application developed by Hasanta Sumudupriya as a technical task for Ceylon Cash. The objective of the application is to provide an API that facilitates fetching daily rates of commodities.",
     "main": "index.js",
     "scripts": {
-        "test": "cross-env DOTENV_CONFIG_PATH=.env.test jest --maxWorkers=1",
+        "test": "cross-env DOTENV_CONFIG_PATH=.env.test jest --maxWorkers=1 --silent --verbose",
         "test:coverage": "cross-env DOTENV_CONFIG_PATH=.env.test jest --maxWorkers=1 --coverage",
         "build": "tsc --build",
         "start": "node ./dist/index.js",

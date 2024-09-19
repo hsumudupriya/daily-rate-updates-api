@@ -8,7 +8,7 @@ const options: Options = {
 };
 
 if (process.env.APP_ENV === 'test' || process.env.APP_ENV === 'prod') {
-    options.logging = false;
+    // options.logging = false;
 }
 
 let sequelize: Sequelize = new Sequelize(

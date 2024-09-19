@@ -26,6 +26,13 @@ afterAll(() => {
 });
 
 describe('RateFetcher.service tests', () => {
+    let ratesFetcher: RatesFetcherService;
+
+    beforeEach(() => {
+        // Create an instance of the RatesFetcherService only with the GoldRatesFetcher.
+        ratesFetcher = new RatesFetcherService([new GoldRatesFetcher()]);
+    });
+
     test('should fetch the rates and create datebase records', async () => {
         // Assert the database do not have any record.
         expect((await CommodityRate.findAll()).length).toBe(0);
@@ -48,10 +55,6 @@ describe('RateFetcher.service tests', () => {
         const promiseResponse = Promise.resolve(response);
         jest.spyOn(axios, 'get').mockReturnValue(promiseResponse);
 
-        // Create an instance of the RatesFetcherService only with the GoldRatesFetcher.
-        const ratesFetcher: RatesFetcherService = new RatesFetcherService([
-            new GoldRatesFetcher(),
-        ]);
         let rates: (void | Promise<CommodityRate>)[] = (
             await ratesFetcher.fetchRates()
         ).flat();
@@ -90,11 +93,6 @@ describe('RateFetcher.service tests', () => {
     test('should try 3 times to fetch the rates if the API request fails', async () => {
         // Mock the axios GET request to return error.
         jest.spyOn(axios, 'get').mockRejectedValue(new Error('404'));
-
-        // Create an instance of the RatesFetcherService only with the GoldRatesFetcher.
-        const ratesFetcher: RatesFetcherService = new RatesFetcherService([
-            new GoldRatesFetcher(),
-        ]);
 
         await ratesFetcher.fetchRates();
 
