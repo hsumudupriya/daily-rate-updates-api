@@ -1,6 +1,6 @@
 ## About
 
-This Node.js application is developed by [Hasanta Sumudupriya](https://www.linkedin.com/in/hsumudupriya) as a technical task for Ceylon Cash. The objectives of the application are as below.
+The objectives of this application are as below.
 
 1. Fetch daily rates of goods (f.e. Gold, Crypto P2P, commodities) from 3rd party APIs via a cron job and store them in a PostgreSQL database.
 1. Provide an API endpoint to fetch the rates of a particular date.
